@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script>
+var request;
+var load=0;
+ function next(ele)
+ {
+	 
+	    var v=ele.id;  
+		var url="./Quiz?val="+v;
+		if(window.XMLHttpRequest){  
+			request=new XMLHttpRequest();  
+			}  
+			else if(window.ActiveXObject){  
+			request=new ActiveXObject("Microsoft.XMLHTTP");  
+			}  
+		  
+		try  
+		{  
+		request.onreadystatechange=getInfo;  
+		request.open("GET",url,true);  
+		request.send();  
+		}  
+		catch(e)  
+		{  
+		alert("Unable to connect to server");  
+		}  load=1;
+		}  
+		  
+		
+function sendInfo()
+{  // Document.getElementById("start").type="hidden"; 
+	if(load>0) return;
+	//var v=document.quiz.t1.value;  
+	var url="./Quiz";
+	if(window.XMLHttpRequest){  
+		request=new XMLHttpRequest();  
+		}  
+		else if(window.ActiveXObject){  
+		request=new ActiveXObject("Microsoft.XMLHTTP");  
+		}  
+	  
+	try  
+	{  
+	request.onreadystatechange=getInfo;  
+	request.open("GET",url,true);  
+	request.send();  
+	}  
+	catch(e)  
+	{  
+	alert("Unable to connect to server");  
+	}  load=1;
+	}  
+	  
+	function getInfo(){  
+	if(request.readyState==4){  
+	var val=request.responseText;  
+	document.getElementById('question').innerHTML=val;  
+	}  
+	}  	
+</script>
+<body>
+<h3>Quiz page</h3>
+<input type="button" id="start" onclick="sendInfo()" value="start">
+<form name="quiz" >
+<span id="question"></span>
+</form>
+</body>
+</html>
